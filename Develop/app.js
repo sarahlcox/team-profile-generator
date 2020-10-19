@@ -13,6 +13,75 @@ const render = require("./lib/htmlRenderer");
 
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
+function init() {
+    inquirer
+        .prompt([
+            {
+                type: "input",
+                message: "What is your name?",
+                name: "name"
+              },
+              {
+                type: "input",
+                message: "What is your id?",
+                name: "id"
+              },
+              {
+                type: "input",
+                message: "What is your email?",
+                name: "email"
+              },
+              {
+                type: "list",
+                name: "role",
+                message: "Select role:",
+                choices: ["manager","engineer","intern"]
+              },
+        ])
+        .then(function(response) {
+            if(response.role === "manager"){
+                inquirer.prompt([
+                    {
+                        type: "input",
+                        name: "officeNumber",
+                        message: "what is your office number?",
+                    }
+                ])
+                .then(function(managerresult) {
+                    console.log(managerresult);
+                    console.log(response);
+                });
+            }
+            else if (response.role==="engineer"){
+                inquirer.prompt([
+                    {
+                        type: "input",
+                        name: "github",
+                        message: "what is your github username?",
+                    }
+                ])
+                .then(function(engineerresult) {
+                    console.log(engineerresult);
+                });
+            }
+            else if (response.role==="intern"){
+                inquirer.prompt([
+                    {
+                        type: "input",
+                        name: "school",
+                        message: "what is your school?",
+                    }
+                ])
+                .then(function(internresult) {
+                    console.log(internresult);
+                });
+            }
+            // console.log(response);
+            // writeToFile("readme.md", markdown(response));
+             
+          });
+}
+init();
 
 // After the user has input all employees desired, call the `render` function (required
 // above) and pass in an array containing all employee objects; the `render` function will
