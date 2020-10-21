@@ -7,19 +7,12 @@ class Engineer extends Employee {
         this.github=github;
     }
     getRole(){
-        console.log("engineer");
-        // return "Engineer";
+        return "Engineer";
     
     }
     getGithub() {
-        console.log(this.github)
-        // return this.github;
+        return this.github;
     }
 }
-var ob = new Employee("Tom",1, "t@test.com", "username");
-var ob2 = new Employee("Henry", 2, "h@test.com","username");
 
-
-console.log(ob, ob2);
-ob.getName();
 module.exports=Engineer;
