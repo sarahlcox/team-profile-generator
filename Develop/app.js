@@ -84,7 +84,7 @@ function init() {
                 ])
                 .then(function(internResult) {
                     var newIntern= new Intern(response.name, response.id, response.email, internResult.school);
-                    // console.log(newIntern);
+                    console.log(newIntern);
                     empArr.push(newIntern);
                     addNewEmployee();
                 });
