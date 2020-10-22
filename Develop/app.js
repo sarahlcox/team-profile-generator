@@ -10,7 +10,7 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
 
-const empArr=[];
+let empArr=[];
 
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
@@ -54,6 +54,8 @@ function init() {
                     empArr.push(newManager);
                     // console.log(managerresult);
                     // console.log(response);
+                    addNewEmployee();
+
                 });
             }
             else if (response.role==="engineer"){
@@ -68,6 +70,8 @@ function init() {
                     var newEngineer= new Engineer(response.name, response.id, response.email, engineerResult.github);
                     console.log(newEngineer);
                     empArr.push(newEngineer);
+                    addNewEmployee();
+
                 });
             }
             else if (response.role==="intern"){
@@ -79,12 +83,14 @@ function init() {
                     }
                 ])
                 .then(function(internResult) {
-                    var newIntern= new Engineer(response.name, response.id, response.email, internResult.school);
-                    console.log(newIntern);
+                    var newIntern= new Intern(response.name, response.id, response.email, internResult.school);
+                    // console.log(newIntern);
                     empArr.push(newIntern);
+                    addNewEmployee();
                 });
             }
-          });
+
+          });          
 }
 
 // After the user has input all employees desired, call the `render` function (required
@@ -99,8 +105,8 @@ function addNewEmployee(){
         }
     ])
     .then(function(response){
-        if(response.addNewEmployee===true){
-            init()
+        if(response.addanother===true){
+            init();
         }
         else {
             var teamHtml = render (empArr)
