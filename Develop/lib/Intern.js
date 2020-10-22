@@ -13,7 +13,7 @@ class Intern extends Employee {
     }
     getSchool() {
         // console.log(this.school)
-        return this.github;
+        return this.getSchool;
     }
 }
 
