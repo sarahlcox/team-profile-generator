@@ -10,7 +10,7 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
 
-const teamArr=[];
+const empArr=[];
 
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
@@ -48,9 +48,12 @@ function init() {
                         message: "what is your office number?",
                     }
                 ])
-                .then(function(managerresult) {
-                    console.log(managerresult);
-                    console.log(response);
+                .then(function(managerResult) {
+                    var newManager= new Manager(managerResult.name, managerResult.id, managerResult.email, managerResult.officeNumber);
+                    console.log(newManager);
+                    empArr.push(newManager);
+                    // console.log(managerresult);
+                    // console.log(response);
                 });
             }
             else if (response.role==="engineer"){
@@ -61,8 +64,10 @@ function init() {
                         message: "what is your github username?",
                     }
                 ])
-                .then(function(engineerresult) {
-                    console.log(engineerresult);
+                .then(function(engineerResult) {
+                    var newEngineer= new Engineer(engineerResult.name, engineerResult.id, engineerResult.email, engineerResult.github);
+                    console.log(newEngineer);
+                    empArr.push(newEngineer);
                 });
             }
             else if (response.role==="intern"){
@@ -73,17 +78,14 @@ function init() {
                         message: "what is your school?",
                     }
                 ])
-                .then(function(internresult) {
-                    console.log(internresult);
+                .then(function(internResult) {
+                    var newIntern= new Engineer(internResult.name, internResult.id, internResult.email, internResult.school);
+                    console.log(newIntern);
+                    empArr.push(newIntern);
                 });
             }
-            // console.log(response);
-            // writeToFile("readme.md", markdown(response));
-             
           });
 }
-init();
-
 // After the user has input all employees desired, call the `render` function (required
 // above) and pass in an array containing all employee objects; the `render` function will
 // generate and return a block of HTML including templated divs for each employee!
@@ -103,3 +105,4 @@ init();
 // for further information. Be sure to test out each class and verify it generates an
 // object with the correct structure and methods. This structure will be crucial in order
 // for the provided `render` function to work! ```
+init();
