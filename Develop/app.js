@@ -49,7 +49,7 @@ function init() {
                     }
                 ])
                 .then(function(managerResult) {
-                    var newManager= new Manager(managerResult.name, managerResult.id, managerResult.email, managerResult.officeNumber);
+                    let newManager= new Manager(response.name, response.id, response.email, managerResult.officeNumber);
                     console.log(newManager);
                     empArr.push(newManager);
                     // console.log(managerresult);
@@ -65,7 +65,7 @@ function init() {
                     }
                 ])
                 .then(function(engineerResult) {
-                    var newEngineer= new Engineer(engineerResult.name, engineerResult.id, engineerResult.email, engineerResult.github);
+                    var newEngineer= new Engineer(response.name, response.id, response.email, engineerResult.github);
                     console.log(newEngineer);
                     empArr.push(newEngineer);
                 });
@@ -79,30 +79,41 @@ function init() {
                     }
                 ])
                 .then(function(internResult) {
-                    var newIntern= new Engineer(internResult.name, internResult.id, internResult.email, internResult.school);
+                    var newIntern= new Engineer(response.name, response.id, response.email, internResult.school);
                     console.log(newIntern);
                     empArr.push(newIntern);
                 });
             }
           });
 }
+
 // After the user has input all employees desired, call the `render` function (required
 // above) and pass in an array containing all employee objects; the `render` function will
 // generate and return a block of HTML including templated divs for each employee!
+function addNewEmployee(){
+    inquirer.prompt([
+        {
+            type: "confirm",
+            name: "addanother",
+            message: "Would you like to add an additional employee?",
+        }
+    ])
+    .then(function(response){
+        if(response.addNewEmployee===true){
+            init()
+        }
+        else {
+            var teamHtml = render (empArr)
+            fs.writeFileSync("./output/team.html", teamHtml, function(err) {
+                console.log(err);
+        });
+        }
+    })
+}
 
 // After you have your html, you're now ready to create an HTML file using the HTML
 // returned from the `render` function. Now write it to a file named `team.html` in the
 // `output` folder. You can use the variable `outputPath` above target this location.
 // Hint: you may need to check if the `output` folder exists and create it if it
 // does not.
-
-// HINT: each employee type (manager, engineer, or intern) has slightly different
-// information; write your code to ask different questions via inquirer depending on
-// employee type.
-
-// HINT: make sure to build out your classes first! Remember that your Manager, Engineer,
-// and Intern classes should all extend from a class named Employee; see the directions
-// for further information. Be sure to test out each class and verify it generates an
-// object with the correct structure and methods. This structure will be crucial in order
-// for the provided `render` function to work! ```
 init();
